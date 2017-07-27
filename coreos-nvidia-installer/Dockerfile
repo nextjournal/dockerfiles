@@ -1,7 +1,7 @@
 ARG COREOS_VERSION=1409.5.0
 ARG DRIVER_VERSION=381.22
 
-FROM bugroger/coreos-developer:${COREOS_VERSION} as BUILD
+FROM nextjournal/coreos-developer:${COREOS_VERSION} as BUILD
 LABEL maintainer "Michael Schmidt <michael.j.schmidt@gmail.com>"
 
 ARG COREOS_VERSION
@@ -26,11 +26,11 @@ RUN mkdir /dest && build/nvidia-installer -s -n --kernel-source-path=/usr/src/li
 RUN mkdir -p /opt/nvidia/.work
 RUN mkdir -p /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/bin
 RUN mkdir -p /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/lib64/modules/$(ls /usr/lib64/modules)/kernel/drivers/video/nvidia
-RUN find /build        -maxdepth 1 -name "nvidia-*" -executable -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/bin \; 
-RUN find /build        -maxdepth 1 -name "*.so.*"               -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/lib64 \; 
-RUN find /build/kernel -maxdepth 1 -name "*.ko"                 -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/lib64/modules/$(ls /usr/lib64/modules)/kernel/drivers/video/ \; 
+RUN find /build        -maxdepth 1 -name "nvidia-*" -executable -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/bin \;
+RUN find /build        -maxdepth 1 -name "*.so.*"               -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/lib64 \;
+RUN find /build/kernel -maxdepth 1 -name "*.ko"                 -exec cp {} /opt/nvidia/${DRIVER_VERSION}/${COREOS_VERSION}/lib64/modules/$(ls /usr/lib64/modules)/kernel/drivers/video/ \;
 
-FROM alpine 
+FROM alpine
 LABEL maintainer "Michael Schmidt <michael.j.schmidt@gmail.com>"
 
 ARG COREOS_VERSION
