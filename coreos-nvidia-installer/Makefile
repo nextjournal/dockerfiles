@@ -1,6 +1,6 @@
 IMAGE          := nextjournal/coreos-nvidia-installer
-COREOS_VERSION := 1409.5.0
-DRIVER_VERSION := 381.22
+COREOS_VERSION ?= 1409.5.0
+DRIVER_VERSION ?= 381.22
 VERSION        := $(COREOS_VERSION)-$(DRIVER_VERSION)
 
 
